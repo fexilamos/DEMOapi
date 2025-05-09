@@ -52,7 +52,7 @@
     </div>
 
     <script>
-        const text = 'Bem-vindo à aplicação!';
+        const text = 'Bem-vindo à Webapp!';
         let i = 0;
         const speed = 100;
 
