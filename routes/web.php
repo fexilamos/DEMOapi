@@ -3,7 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
-
+use App\Http\Controllers\PayPalController;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -34,5 +34,14 @@ Route::post('/form-bandeira', function (Request $request) {
 
     ]);
 });
+
+Route::get('transaction', [PayPalController::class, 'createTransaction'])->name('createTransaction');
+Route::get('process-transaction', [PayPalController::class, 'processTransaction'])->name('processTransaction');
+Route::get('success-transaction', [PayPalController::class, 'successTransaction'])->name('successTransaction');
+Route::get('cancel-transaction', [PayPalController::class, 'cancelTransaction'])->name('cancelTransaction');
+Route::get('finish-transaction', [PayPalController::class, 'finishTransaction'])->name('finishTransaction');
+
+
+
 
 require __DIR__.'/auth.php';
