@@ -7,25 +7,31 @@
     <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        body {
+            background-image:
+                url('/images/patterns.svg'),
+                linear-gradient(to bottom right, #0d3b3c, #0e574d);
+            background-repeat: repeat;
+            background-size: auto, cover;
+        }
+
         .typing {
             font-family: 'Courier New', monospace;
-            border-right: 2px solid white;
-            white-space: nowrap;
+            color: rgb(16, 95, 58); /* cor do texto verde */
+            border-right: 2px solid rgb(16, 95, 58);
+            box-shadow: 0 0 10px rgb(16, 95, 58); /* correção aqui */
             overflow: hidden;
+            animation: blink 0.7s step-end infinite;
         }
 
         @keyframes blink {
             0% { border-color: transparent; }
-            50% { border-color: white; }
+            50% { border-color: rgb(16, 95, 58); }
             100% { border-color: transparent; }
-        }
-
-        .typing {
-            animation: blink 0.7s step-end infinite;
         }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#0d3b3c] to-[#0e574d] text-white font-sans">
+<body class="min-h-screen flex items-center justify-center text-white font-sans">
 
     <div class="text-center space-y-6">
         <h1 id="typing-text" class="text-4xl font-semibold typing"></h1>
