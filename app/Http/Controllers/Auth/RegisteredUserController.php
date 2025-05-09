@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use App\Services\RecaptchaService;
 
 class RegisteredUserController extends Controller
 {
@@ -24,14 +25,20 @@ class RegisteredUserController extends Controller
 
     /**
      * Handle an incoming registration request.
-     *
-     * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request): RedirectResponse
     {
+        $recaptchaService = new RecaptchaService();
+
+        $recaptchaResult = $recaptchaService->verifyRequest($request);
+
+        if ($recaptchaResult == false) {
+            return back()->withErrors(['captcha' => 'Falha na verificação do ReCAPTCHA. Tente novamente.']);
+        }
+
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 

@@ -1,4 +1,7 @@
 <x-guest-layout>
+
+   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
@@ -39,6 +42,19 @@
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
 
+        <div class="mt-4">
+            <div class="g-recaptcha" data-sitekey="{{ config('services.google.recaptcha_site_key') }}"></div>
+              @error('captcha')
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mt-2 text-sm flex items-center"
+                      role="alert">
+                      <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <path d="M10 15a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm0-11a1.5 1.5 0 00-1.5 1.5v5a1.5 1.5 0 003 0v-5A1.5 1.5 0 0010 4z" />
+                      </svg>
+                      <span>{{ $message }}</span>
+                </div>
+              @enderror
+        </div>
+
         <div class="flex items-center justify-end mt-4">
             <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
                 {{ __('Already registered?') }}
@@ -48,5 +64,8 @@
                 {{ __('Register') }}
             </x-primary-button>
         </div>
+
+
+
     </form>
 </x-guest-layout>
